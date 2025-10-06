@@ -1,0 +1,1215 @@
+SQL> 
+SQL> -- Run script northwoods
+SQL> @ C:\NRD_L10\7Northwoods.sql
+Connected.
+
+User dropped.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+User altered.
+
+Connected.
+DROP TABLE enrollment CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE course_section CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE term CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE course CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE student CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE faculty CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE location CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> 
+SQL> -- Question #1
+SQL> SELECT bldg_code, room
+  2  FROM LOCATION
+  3  WHERE  capacity =
+  4  (
+  5      SELECT capacity
+  6      FROM LOCATION
+  7      WHERE bldg_code = 'CR' AND room = '103'
+  8  );
+
+BLDG_CODE  ROOM                                                                 
+---------- ------                                                               
+CR         103                                                                  
+CR         105                                                                  
+BUS        404                                                                  
+BUS        421                                                                  
+
+SQL> 
+SQL> -- Question #2
+SQL> SELECT s_last, s_first, course.course_name, term.term_desc, enrollment.grade
+  2  FROM student, course_section, term, enrollment, course
+  3  WHERE course.course_id = course_section.course_id AND student.s_id = enrollment.s_id AND course_section.c_sec_id = enrollment.c_sec_id AND term.term_id = course_section.term_id AND student.f_id = (
+  4      SELECT f_id
+  5      FROM faculty
+  6      WHERE f_first = 'Kim' AND f_last = 'Cox');
+
+S_LAST                         S_FIRST                                          
+------------------------------ ------------------------------                   
+COURSE_NAME               TERM_DESC            G                                
+------------------------- -------------------- -                                
+Miller                         Sarah                                            
+Intro. to Info. Systems   Fall 2006            A                                
+                                                                                
+Miller                         Sarah                                            
+Systems Analysis          Fall 2006            A                                
+                                                                                
+Miller                         Sarah                                            
+Database Management       Spring 2007          B                                
+                                                                                
+
+S_LAST                         S_FIRST                                          
+------------------------------ ------------------------------                   
+COURSE_NAME               TERM_DESC            G                                
+------------------------- -------------------- -                                
+Miller                         Sarah                                            
+Web-Based Systems         Spring 2007          B                                
+                                                                                
+Umato                          Brian                                            
+Intro. to Info. Systems   Fall 2006            C                                
+                                                                                
+Umato                          Brian                                            
+Systems Analysis          Spring 2007          B                                
+                                                                                
+
+S_LAST                         S_FIRST                                          
+------------------------------ ------------------------------                   
+COURSE_NAME               TERM_DESC            G                                
+------------------------- -------------------- -                                
+Umato                          Brian                                            
+Database Management       Spring 2007          A                                
+                                                                                
+Umato                          Brian                                            
+Web-Based Systems         Spring 2007          B                                
+                                                                                
+Black                          Daniel                                           
+Intro. to Info. Systems   Fall 2006            C                                
+                                                                                
+
+S_LAST                         S_FIRST                                          
+------------------------------ ------------------------------                   
+COURSE_NAME               TERM_DESC            G                                
+------------------------- -------------------- -                                
+Black                          Daniel                                           
+Systems Analysis          Summer 2007                                           
+                                                                                
+Black                          Daniel                                           
+Database Management       Summer 2007                                           
+                                                                                
+
+11 rows selected.
+
+SQL> 
+SQL> -- Run script software expert
+SQL> @ C:\NRD_L10\7Software.sql
+Connected.
+
+User dropped.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+User altered.
+
+Connected.
+DROP TABLE evaluation CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project_consultant CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project_skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE project CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE client CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE consultant_skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE skill CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE consultant CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table altered.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> 
+SQL> -- Question #3
+SQL> SELECT c_first, c_last
+  2  FROM consultant
+  3  WHERE c_id IN
+  4  (
+  5      SELECT distinct c_id
+  6      FROM project_consultant
+  7      WHERE p_id IN
+  8      (
+  9          SELECT distinct p_id
+ 10          FROM project_consultant
+ 11          WHERE c_id =
+ 12          (
+ 13              SELECT distinct c_id
+ 14              FROM consultant
+ 15              WHERE c_first = 'Mark' AND c_last = 'Myers'
+ 16          )
+ 17      )
+ 18  );
+
+C_FIRST              C_LAST                                                     
+-------------------- --------------------                                       
+Mark                 Myers                                                      
+Brian                Zhang                                                      
+Janet                Park                                                       
+
+SQL> 
+SQL> -- Question #4
+SQL> SELECT project_name, c_first, c_last
+  2  FROM project, consultant
+  3  WHERE project.mgr_id = consultant.c_id
+  4  AND project.p_id IN
+  5  (
+  6      SELECT p_id
+  7      FROM project_consultant
+  8      WHERE c_id =
+  9      (
+ 10          SELECT c_id
+ 11          FROM consultant
+ 12          WHERE c_first = 'Mark' AND c_last = 'Myers'
+ 13      )
+ 14  );
+
+PROJECT_NAME                   C_FIRST              C_LAST                      
+------------------------------ -------------------- --------------------        
+Hardware Support Interface     Sarah                Carlson                     
+Exploration Database           Brian                Zhang                       
+
+SQL> 
+SQL> -- Question #5
+SQL> SELECT c_first, c_last
+  2  FROM consultant
+  3  WHERE c_id IN
+  4  (
+  5      SELECT c_id
+  6      FROM project_consultant
+  7      WHERE p_id =
+  8      (
+  9          SELECT p_id
+ 10          FROM project
+ 11          WHERE client_id =
+ 12          (
+ 13              SELECT client_id
+ 14              FROM client
+ 15              WHERE client_name = 'Morningstar Bank'
+ 16          )
+ 17      )
+ 18  );
+
+C_FIRST              C_LAST                                                     
+-------------------- --------------------                                       
+Brian                Zhang                                                      
+Paul                 Courtlandt                                                 
+Janet                Park                                                       
+
+SQL> 
+SQL> -- Run script clearwater
+SQL> @ C:\NRD_L10\7clearwater.sql
+Connected.
+
+User dropped.
+
+
+User created.
+
+
+Grant succeeded.
+
+
+User altered.
+
+Connected.
+DROP TABLE order_line CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE shipment_line CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE shipment CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE inventory CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE color CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE item CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE category CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE orders CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE order_source CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+DROP TABLE customer CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+Commit complete.
+
+SQL> 
+SQL> -- Question #6
+SQL> SELECT inventory.inv_id, inventory.inv_size, item.item_desc, inventory.color, shipment_line.sl_quantity
+  2  FROM inventory, shipment_line, item
+  3  WHERE item.item_id = inventory.item_id AND inventory.inv_id = shipment_line.inv_id AND inventory.inv_id != 12 AND shipment_line.sl_date_received =
+  4  (
+  5      SELECT sl_date_received
+  6      FROM shipment_line
+  7      WHERE inv_id =
+  8      (
+  9          SELECT inv_id
+ 10          FROM inventory
+ 11          WHERE inv_id = 12
+ 12      )
+ 13      AND ship_id = 4
+ 14  );
+
+    INV_ID INV_SIZE   ITEM_DESC                      COLOR                      
+---------- ---------- ------------------------------ --------------------       
+SL_QUANTITY                                                                     
+-----------                                                                     
+        23 S          Men's Expedition Parka         Spruce                     
+         50                                                                     
+                                                                                
+        24 M          Men's Expedition Parka         Spruce                     
+        100                                                                     
+                                                                                
+        25 L          Men's Expedition Parka         Spruce                     
+        100                                                                     
+                                                                                
+
+SQL> 
+SQL> -- Save spool
+SQL> SPOOL OFF;
